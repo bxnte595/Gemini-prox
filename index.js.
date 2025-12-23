@@ -1,0 +1,15 @@
+export default {async fetch(request, env, ctx) {const url = new URL(request.url);
+    const GEMINI_API_KEY = env.GEMINI_API_KEY;
+    
+    const targetUrl = `https://generativelanguage.googleapis.com${url.pathname}${url.search}`;
+    
+    const modifiedRequest = new Request(targetUrl, {method: request.method,
+      headers: {'Content-Type': 'application/json',
+        'Authorization': `Bearer ${GEMINI_API_KEY}`
+      },
+      body: request.body
+    });
+
+    return fetch(modifiedRequest);
+  }
+};
